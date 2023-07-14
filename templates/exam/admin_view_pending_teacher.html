@@ -1,0 +1,120 @@
+{% extends 'student/adminbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .panel-heading {
+      background-color: #428bca;
+      color: #fff;
+      padding: 10px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+
+    .panel-title {
+      text-align: center;
+      margin: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f9f9f9;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    td img {
+      height: 40px;
+      width: 40px;
+    }
+
+    .btn {
+      padding: 6px 12px;
+      border-radius: 3px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-success {
+      background-color: #5cb85c;
+    }
+
+    .btn-success:hover {
+      background-color: #449d44;
+    }
+
+    .btn-danger {
+      background-color: #d9534f;
+    }
+
+    .btn-danger:hover {
+      background-color: #c9302c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" style="margin-bottom: 15%;overflow-x: scroll">
+    <div class="panel-heading">
+      <h6 class="panel-title" style="font-size: medium;">Pending Teachers</h6>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Contact</th>
+          <th>Address</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in teachers %}
+        <tr>
+          <td>{{ t.get_name }}</td>
+          <td>{{ t.mobile }}</td>
+          <td>{{ t.address }}</td>
+          <td>
+            <a style="margin-bottom: 30px;" class="btn btn-success" href="{% url 'approve-teacher' t.id %}">
+              ACCEPT
+            </a>
+            <br>
+            <a style="margin-top: 10px;" class="btn btn-danger" href="{% url 'reject-teacher' t.id %}">
+              DENIED
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
+{% endblock content %}

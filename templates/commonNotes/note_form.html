@@ -1,0 +1,96 @@
+<!-- component -->
+{% extends 'teacher/teacherbase.html' %}
+
+{% block content %}
+<!-- component -->
+<html>
+<style>
+    @media (min-width:680px) {
+        form{
+            margin-bottom: 10%;
+        }
+    }
+</style>
+<head>
+    <!-- <link rel="stylesheet"
+        href="https://horizon-tailwind-react-git-tailwind-components-horizon-ui.vercel.app/static/css/main.ad49aa9b.css" /> -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+
+<body >
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+    <div style="margin: 0 auto ; width: 500px;margin-bottom: 10%;" class="flex flex-col justify-center items-center h-[100vh]">
+        <div style="margin-top: 10px; padding:  30px ;margin-bottom: 10%;"
+            class="!z-5 relative flex flex-col rounded-[20px] max-w-[300px] md:max-w-[400px] bg-white bg-clip-border shadow-3xl shadow-shadow-500 flex flex-col w-full !p-6 3xl:p-![18px] bg-white undefined">
+
+            <div class="relative flex flex-row justify-between">
+                <br>
+                <h2  style=" margin-right: 200px; margin-top: 10px;" class="text-xl font-bold text-navy-700 dark:text-white mb-3" >
+                    Note Form
+                </h2>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="text-sm text-navy-700 dark:text-white font-bold">cover_image url:</label>
+                <input  type="text" name="cover_image" id="cover_image" value="{{ note.cover_image }}" required placeholder="cover_image url"
+                    class="mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none border-gray-200">
+            </div>
+            <div class="mb-3">
+                <label for="department">Department:</label>
+                <select class="form-control" name="department" id="department" value="{{ note.department }}">
+                  {% for i in dep %}
+                    <option value="{{ i.name }}">{{ i.name }}</option>
+                  {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="text-sm text-navy-700 dark:text-white font-bold">Semester:</label>
+                <input  type="text" name="semester" id="semester" value="{{ note.semester }}" required placeholder="Semester"
+                    class="mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none border-gray-200">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="text-sm text-navy-700 dark:text-white font-bold">Notes Title:</label>
+                <input type="text" name="notes_title" id="notes_title" value="{{ note.notes_title }}" required placeholder="Title"
+                    class="mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none border-gray-200">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="text-sm text-navy-700 dark:text-white font-bold">Regulation:</label>
+                <input type="text" name="regulation" id="regulation" value="{{ note.regulation }}" required placeholder="Regulation"
+                    class="mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none border-gray-200">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="text-sm text-navy-700 dark:text-white font-bold">Subcode:</label>
+                <input type="text" name="subcode" id="subcode" value="{{ note.subcode }}" required placeholder="Sub code"
+                    class="mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none border-gray-200">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="text-sm text-navy-700 dark:text-white font-bold">Description:</label>
+                <hr>
+                <textarea style="" name="description" id="description" required>{{ note.description }}</textarea placeholder="Description"
+                    class="mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none border-gray-200">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="text-sm text-navy-700 dark:text-white font-bold">File:</label>
+                <input type="file" name="file" id="file" required placeholder="File:" > 
+            </div>
+            <!-- {% if note.file %} -->
+            <p>Current File: <a href="{{ note.file.url }}" target="_blank">{{ note.file.name }}</a></p>
+            <!-- {% endif %} -->
+           <div>
+            <button type="submit" style="background-color: rgb(14, 11, 173); color: azure;border-radius: 5px; width: 50px;padding: 2px 5px">Save</button>
+            
+            <button type="cancel" style="background-color: rgb(14, 11, 173); color: azure;border-radius: 5px; width: 60px;padding: 2px 5px;padding-right: 6px;"><a href="{% url 'notes_list' %}" style="color: white;">Cancel</a></button>
+        </div>
+        </div>
+    </div>
+    
+    </div>
+    </form>
+</body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,162 @@
+<!-- students_list.html -->
+{% extends 'teacher/teacherbase.html' %}
+
+{% block content %}
+{% for dept in departments %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .card-container {
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 20px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+}
+
+td {
+    font-size: 14px;
+}
+
+a {
+    margin-right: 5px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+@media only screen and (max-width: 600px) {
+  .card-container {
+    padding: 10px;
+    margin-bottom: 19%;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 5px;
+  }
+}
+
+
+    </style>
+</head>
+<body>
+<div style="margin-bottom: 7%;margin-top: 10px;">
+    <center><input type="text" id="search" placeholder="Search..." oninput="filterTable()"></center>
+
+    <div class="card-container" >
+        <h2>{{ dept }}</h2>
+        <div class="table-container" style="margin-bottom: 10%;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Role No</th> 
+                        <th>Mobile</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    {% if student.department == dept %}
+                    <tr>
+                        <td>{{ student.get_name }}</td>
+                        <td>{{ student.department }}</td>
+                        {% if data == 'std' %}
+                        <td>{{ student.role_no }}</td>
+                        {% else %}
+                        <td>{{ student.role }}</td>
+                        {% endif %}
+                        <td>{{ student.mobile }}</td>
+                        <td>
+                          {% if data == 'std' %}
+                            <a href="students/{{ student.id}}">View</a>
+                            <a href="student/{{ student.id }}/edit">Edit</a>
+                            <a href="students_delete/{{ student.id }}/delete">Delete</a>
+                          {% else %}
+                            <a href=" {% url 'teacher_profile' staff_id=student.id %}">View</a>
+                            <a href=" {% url 'teacher_edit' teacher_id=student.id %}">Edit</a>
+                            <a href="{% url 'teacher_delete' teacher_id=student.id %}">Delete</a>
+                          {% endif %}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    function filterTable() {
+  // Get user's search query
+  var query = document.getElementById("search").value.toLowerCase();
+  
+  // Get all the rows in the table
+  var rows = document.getElementsByTagName("tr");
+
+  // Loop through all the rows
+  for (var i = 0; i < rows.length; i++) {
+    var row = rows[i];
+
+    // Get the cells in the row
+    var cells = row.getElementsByTagName("td");
+
+    // Loop through all the cells in the row
+    var match = false;
+    for (var j = 0; j < cells.length; j++) {
+      var cell = cells[j];
+
+      // If the cell contains the search query, show the row
+      if (cell.innerHTML.toLowerCase().indexOf(query) > -1) {
+        match = true;
+        break;
+      }
+    }
+
+    // Hide or show the row based on the search query
+    if (match) {
+      row.style.display = "";
+    } else {
+      row.style.display = "none";
+    }
+  }
+}
+
+</script>
+
+</html>
+
+{% endfor %}
+{% endblock %}

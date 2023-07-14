@@ -1,0 +1,81 @@
+
+{% extends 'student/adminbase.html' %}
+{% block content %}
+<div class="card1" style="width: 90%;margin-top: 10px;
+margin-left: 20px;">
+    <div class="card-header1">
+      <h2 class="card-title1">{% if department %}Edit department{% else %}Create department{% endif %}</h2>
+    </div>
+    <div class="card-body1">
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p>[Note: You must provide a correct Shortform for your Department.]</p>
+        <button style="display: inline-block;
+        font-weight: 600;
+        color: #fff;
+        
+        border-radius: 0.25rem;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        line-height: 1.25;
+        text-align: center;
+        transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        cursor: pointer;" type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+  </div>
+  <style>
+    .card1 {
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.card-header1 {
+  background-color: #f7fafc;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.card-title1 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a202c;
+}
+
+.card-body1 {
+  padding: 1.5rem;
+}
+
+textarea{
+  width: 180px;
+  height: 90px;
+}
+
+.btn-primary {
+  background-color: #4299e1;
+  border-color: #4299e1;
+}
+
+.btn:hover {
+  background-color: #3182ce;
+  border-color: #3182ce;
+}
+
+  </style>
+  <script>
+    // Add a click event listener to the Save button
+const saveButton = document.querySelector('.btn-primary');
+saveButton.addEventListener('click', () => {
+  console.log('Save button clicked');
+});
+
+  </script>
+{% endblock %}

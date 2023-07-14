@@ -1,0 +1,266 @@
+{% extends 'teacher/teacherbase.html' %}
+{% load widget_tweaks %}
+{% block content %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container py-5{
+      margin-bottom: 26%;
+    }
+    @media only screen and (max-width: 600px) {
+   .container py-5{
+margin-bottom:17% ;
+   }}
+  </style>
+</head>
+<body>
+  <section style="background-color: #eee;">
+    
+    <div class="container py-5">
+      
+      <div class="row">
+        <div class="col">
+          <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+            <h1 style="font-size: 30px;" class="text-gray-700 font-bold">
+              Teacher Profile</h1>
+          </nav>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <a href="{% url 'teacher_edit' teacher_id=teacher_id  %}">
+            <svg style="margin: 30px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#67748e" d="M12 21v-2.125l5.3-5.3l2.125 2.125l-5.3 5.3H12Zm-9-5v-2h7v2H3Zm17.125-1L18 12.875l.725-.725q.275-.275.7-.275t.7.275l.725.725q.275.275.275.7t-.275.7l-.725.725ZM3 12v-2h11v2H3Zm0-4V6h11v2H3Z" /></svg>
+          </a>
+            <div class="card-body text-center" style="display: flex;
+            flex-direction: column;
+            align-content: center;
+            flex-wrap: wrap;">
+              
+              <img src="{{ teacher.profile_pic.url }}" alt="{{ teacher.get_name }} profile picture"
+                class="rounded-circle img-fluid" style="width: 150px;">
+                {% if teacher %}
+                <h5 class="my-3">{{ teacher.get_name }}</h5>
+              <!-- <p class="text-muted mb-1">Full Stack Developer</p>
+              <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+              <div class="d-flex justify-content-center mb-2">
+                <button type="button" class="btn btn-primary">Follow</button>
+                <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+              </div> -->
+            </div>
+          </div>
+          {% if links %}
+          <div class="card mb-4 mb-lg-0">
+            <div class="card-body p-0" style="overflow: hidden;">
+              <ul class="list-group list-group-flush rounded-3">
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fas fa-globe fa-lg text-warning"></i>
+                  <p class="mb-0"><a href="{{ links.portfolio }}"  target="_blank">Porfolio </a> </p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                  <p class="mb-0"><a href="{{ links.github }}"  target="_blank">Github</a> </p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
+                  <p class="mb-0"><a href="{{ links.twitter }}" target="_blank">Twitter</a></p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                  <p class="mb-0"><a href="{{ links.instagram }}"  target="_blank">Instagram</a></p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                  <p class="mb-0"><a href="{{ links.facebook }}"  target="_blank">Facebook</a></p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-linkedin fa-lg" style="color: #3b5998;"></i>
+                  <p class="mb-0"><a href="{{ links.linkedin }}"  target="_blank">Linkedin</a></p>
+                </li>
+              </ul>
+            </div>
+          {% else %}
+          <div class="card mb-4 mb-lg-0">
+            <div class="card-body p-0">
+              <ul class="list-group list-group-flush rounded-3">
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fas fa-globe fa-lg text-warning"></i>
+                  <p class="mb-0">Not Updated</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                  <p class="mb-0">Not Updated</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
+                  <p class="mb-0">Not Updated</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                  <p class="mb-0">Not Updated</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                  <p class="mb-0">Not Updated</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-linkedin fa-lg" style="color: #3b5998;"></i>
+                  <p class="mb-0">Not Updated</p>
+                </li>
+              </ul>
+            </div> 
+            {% endif %}
+          </div><br>
+          <button id="edit" class="bg-blue-500 hover:bg-blue-700  font-bold py-2 px-4 rounded" style="background-color: #3b5998;margin-left: 60px;border: none;color: white;" ><a style="color: white;"
+            href="{% url 'staff_edit_social_media' %}">Update Links</a></button>
+          <br><br>
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Full Name:</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ teacher.get_name }}</p>
+                </div>
+              </div>
+              <hr><br>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Address:</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ teacher.address }}</p>
+                </div>
+              </div>
+              <hr><br>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Role:</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ teacher.role }}</p>
+                </div>
+              </div>
+              <hr><br>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Mobile:</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ teacher.mobile }}</p>
+                </div>
+              </div>
+              <hr><br>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Status:</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ teacher.status }}</p>
+                </div>
+              </div>
+              <hr><br>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Department:</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ teacher.department }}</p>
+                </div>
+              </div>
+              <hr><br>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Salary:</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ teacher.salary }}</p>
+                </div>
+              </div>
+              <hr><br>
+            </div>
+          </div>
+          {% else %}
+    <p>Teacher not found.</p>
+          {% endif %}
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body">
+                  <p class="mb-4"><span class="text-primary font-italic me-1">Settings</span><br> <span>This setting will be affected only on your Account.</span> 
+                  </p>
+                  <div style="display: flex;"><p class="mb-1" style="font-size: .77rem;">Chat Bot</p>
+                    <div class="max-w-lg mx-auto">
+                      <link rel="stylesheet" href="https://unpkg.com/@themesberg/flowbite@1.1.0/dist/flowbite.min.css" />
+                  
+                      <label for="toggle-example" class="flex items-center cursor-pointer relative mb-4">
+                        {% csrf_token %}
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                          <input type="checkbox" id="toggle-example" class="sr-only">
+                          <div class="toggle-bg bg-gray-200 border-2 border-gray-200 h-6 w-11 rounded-full"></div>
+                          <span class="ml-3 text-gray-900 text-sm font-medium"></span>
+                      </label>
+                  </div>
+                </div>
+           
+  </section>
+</body>
+<script>
+  let count = {{ bot }};
+  console.log("bot : "+count)
+  const toggleExample = document.getElementById('toggle-example');
+  
+  if({{ bot }}==1){
+    toggleExample.click()
+  }else{
+
+  }
+
+  let url; // Declare the url variable outside the if statement
+
+  toggleExample.addEventListener('change', function() {
+    const xhr = new XMLHttpRequest();
+
+    if (count % 2 == 0) {
+      url = "{% url 'handle_toogle' action=1 %}"; // Assign the value to the url variable
+      count++;
+    } else {
+      url = "{% url 'handle_toogle' action=0 %}"; // Assign the value to the url variable
+      count++;
+
+    }
+
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          location.reload();
+          console.log(response.message);
+          // Handle the response as needed
+        } else {
+          location.reload();
+          console.error('Failed to update toggle state');
+        }
+      }
+    };
+
+    const action = toggleExample.checked ? 1 : 0;
+
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+    xhr.open('POST', url);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('X-CSRFToken', csrfToken);
+    xhr.send(JSON.stringify({ action: action }));
+  });
+</script>
+</html>
+{% endblock content %}

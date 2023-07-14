@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Search Results</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css">
+  <style>
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="mt-32">
+    <div class="px-4 sm:px-8 max-w-5xl m-auto">
+      <h1 class="text-center font-semibold text-sm">Search  for "{{ query }}"</h1>
+      <div class="search-container">
+        <input type="text" placeholder="Filter URL" id="search-box" class="border border-gray-300 px-4 py-2 rounded-md w-64 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button type="button" id="search-btn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md ml-2 focus:outline-none">Filter</button>
+      </div>
+
+      {% if not results %}
+      <p class="text-center mt-4">No results found.</p>
+      {% else %}
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="search-results">
+        {% for result in results %}
+        <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 ease-in-out hover:bg-sky-100 hover:text-sky-900">
+          <div class="p-4">
+            <h5 class="text-lg font-medium mb-2">
+              <a href="{{ result.title }}" target="_blank" class="text-blue-500 hover:underline">{{ result.title }}</a>
+            </h5>
+            <p class="text-gray-700 mb-4">{{ result.description }}</p>
+            <div class="flex justify-between text-gray-500">
+              <p>{{ result.date }}</p>
+              <p>{{ result.author }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      
+      {% endif %}
+    </div>
+  </div>
+
+  <script>
+    const searchBtn = document.querySelector('#search-btn');
+    const searchBox = document.querySelector('#search-box');
+    const searchResults = document.querySelector('#search-results').children;
+
+    searchBtn.addEventListener('click', () => {
+      const searchTerm = searchBox.value.toLowerCase();
+      Array.from(searchResults).forEach(result => {
+        const resultTitle = result.querySelector('a').textContent.toLowerCase();
+        if (resultTitle.includes(searchTerm)) {
+          result.style.display = 'block';
+        } else {
+          result.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

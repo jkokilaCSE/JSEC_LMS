@@ -1,0 +1,235 @@
+<!doctype html>
+{% load static %}
+{% load widget_tweaks %}
+
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'login/fonts/icomoon/style.css' %}">
+    <link rel="stylesheet" href="{% static 'login/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'login/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'login/css/style.css' %}">
+    
+    <link rel=" icon" href="https://jec.ac.in/wp-content/themes/Jayacollege_2017/images/logo_fav.png" type="image/x-icon">
+
+    <title>Login</title>
+  </head>
+  <style>
+    #snackbar {
+      visibility: hidden;
+      min-width: 250px;
+      margin-left: -125px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 2px;
+      padding: 16px;
+      position: fixed;
+      z-index: 1;
+      left: 50%;
+      bottom: 30px;
+    }
+    
+    #snackbar.show {
+      visibility: visible;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+    
+    @keyframes fadein {
+      from {bottom: 0; opacity: 0;}
+      to {bottom: 30px; opacity: 1;}
+    }
+    
+    @keyframes fadeout {
+      from {bottom: 30px; opacity: 1;}
+      to {bottom: 0; opacity: 0;}
+    }
+    
+    #snackbar .underline {
+      height: 3px;
+      background-color: #fff;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      animation: reduceWidth 5s linear forwards;
+    }
+    
+    @keyframes reduceWidth {
+      0% {width: 100%;}
+      100% {width: 0;}
+    }
+    
+  </style>
+  <body>
+  
+    <div style="margin-top: 50px;">
+      <center><img src="https://jec.ac.in/wp-content/uploads/2022/11/jaya_college_logo_update.png" alt="Image" width="390px" height="70px"> </center>
+    </div>
+
+  
+  <div class="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <img src=" {% static 'login/images/undraw_remotely_2j6y.svg' %} " alt="Image" class="img-fluid">
+        </div>
+        <div class="col-md-6 contents">
+          <div class="row justify-content-center">
+            <div class="col-md-8">
+              <div class="mb-4">
+              <h3>Sign In</h3>
+            </div>
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger" role="alert">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    {% for error in form.non_field_errors %}
+                        <p style="color:black">{{ error }}</p>
+                    {% endfor %}
+                  </div>
+            {% endif %}
+
+
+            <form method="post">
+              {% csrf_token %}
+              <div class="form-group first">
+                <label for="username">Username</label>
+                {% render_field form.username type="text" class="form-control" placeholder="" %}
+                <!-- <input type="text" name ="usr_name" class="form-control" id="username"> -->
+
+              </div>
+              <div class="form-group last mb-4">
+                <div style="display: none; color: red;" id="error-message">
+                  Invalid username or password. Please try again.
+                  <button type="button" class="close" onclick="hideErrorMessage()">×</button>
+                </div>
+                <label for="password"  >Password</label>
+                <div  style="display: none; color: red;"></div>
+
+                <!-- {% render_field form.password type="password"  class="form-control" placeholder="Password" %} -->
+
+                <div class="input-group">
+                  {% render_field form.password type="password" class="form-control" placeholder="" %}
+                  <div class="input-group-append">
+                    <span class="input-group-text" style="border: none;background-color: #EDF2F5;">
+                      <i class="fas fa-eye" id="password-toggle"></i>
+                    </span>
+                  </div>
+                </div>
+                
+                <!-- <input type="password" name="password" class="form-control" id="password"> -->
+                
+              </div>
+              
+              <div class="d-flex mb-5 align-items-center">
+                <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
+                  <input type="checkbox" checked="checked"/>
+                  <div class="control__indicator"></div>
+                </label>
+                
+              </div>
+
+              <input onclick="showToast(message,success)" type="submit" value="Log In" class="btn btn-block btn-primary">
+              
+              </div>
+            </form>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <script>
+    function showToast() {
+      var x = document.getElementById("snackbar");
+      x.className = "show";
+      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    }
+  </script>
+  
+    <script src=" {% static 'login/js/jquery-3.3.1.min.js' %} "></script>
+    <script src=" {% static 'login/js/popper.min.js' %} "></script>
+    <script src=" {% static 'login/js/bootstrap.min.js' %} "></script>
+    <script src=" {% static 'login/js/main.js' %} "></script>
+   
+    <script>
+     
+     function showToast() {
+  // Get the value of the username and password input fields
+  var username = document.getElementById("id_username").value;
+  var password = document.getElementById("id_password").value;
+
+  // Send a request to your backend system to check the credentials
+  // For example, using jQuery:
+  $.post("/login", {"username": username, "password": password})
+    .done(function(response) {
+      // If the credentials are correct, submit the form
+      if (response === "success") {
+        return true;
+      } else {
+        // If the credentials are incorrect, show an error message
+        var errorElement = document.getElementById("error-message");
+        errorElement.innerHTML = "Invalid username or password. Please try again.";
+        errorElement.style.display = "block";
+        
+        // Hide the error message after 2 seconds
+        setTimeout(function() {
+          errorElement.style.display = "none";
+        }, 5000);
+        
+        return false;
+      }
+    })
+    .fail(function() {
+      // If there was an error in the request, show an error message
+      var errorElement = document.getElementById("error-message");
+      errorElement.innerHTML = "Invalid Username or password";
+      errorElement.style.display = "block";
+      
+      // Hide the error message after 2 seconds
+      setTimeout(function() {
+  errorElement.style.display = "none";
+}, 5000);
+
+      return false;
+    });
+}
+
+function hideErrorMessage() {
+  document.getElementById("error-message").style.display = "none";
+}
+
+
+</script>
+<script>
+  const passwordToggle = document.getElementById('password-toggle');
+  const passwordField = document.getElementById('id_password');
+
+  passwordToggle.addEventListener('click', function () {
+    if (passwordField.type === 'password') {
+      passwordField.type = 'text';
+      passwordToggle.classList.remove('fa-eye');
+      passwordToggle.classList.add('fa-eye-slash');
+    } else {
+      passwordField.type = 'password';
+      passwordToggle.classList.remove('fa-eye-slash');
+      passwordToggle.classList.add('fa-eye');
+    }
+  });
+</script>
+
+
+    
+  </body>
+</html>
+
+
+

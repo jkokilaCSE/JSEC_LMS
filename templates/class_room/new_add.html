@@ -1,0 +1,87 @@
+{% extends 'teacher/teacherbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .card {
+  margin-top: 50px;
+}
+
+@media (max-width: 768px) {
+  .card {
+    margin-top: 20px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title mb-3">Add New Class</h5>
+            <h6 class="information mt-4">Please provide the following information about the new class</h6>
+            <form action="save_added_class" method="post">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="class_name">Class Name:</label>
+                <input class="form-control" name="class_name" type="text" placeholder="Enter class name" required>
+              </div>
+              <div class="form-group">
+                <label for="subject_code">Subject Code:</label>
+                <input class="form-control" name="subject_code" type="text" placeholder="Enter subject code" required>
+              </div>
+              <div class="form-group">
+                <label for="department">Department:</label>
+                <select class="form-control" name="department" required>
+                  {% for i in course %}
+                    <option value="{{ i.name }}">{{ i.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="type">Room Type:</label>
+                <select class="form-control" name="type" required>
+                    <option value="class">Class</option>
+                    <option value="subject">Subject</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="semester">Semester:</label>
+                <select class="form-control" name="semester" required>
+                  <option value="1">Semester 1</option>
+                  <option value="2">Semester 2</option>
+                  <option value="3">Semester 3</option>
+                  <option value="4">Semester 4</option>
+                  <option value="5">Semester 5</option>
+                  <option value="6">Semester 6</option>
+                  <option value="7">Semester 7</option>
+                  <option value="8">Semester 8</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="description">Description:</label>
+                <input class="form-control" name="discription" type="text" placeholder="Enter description" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  
+</body>
+</html>
+
+
+{% endblock content %}

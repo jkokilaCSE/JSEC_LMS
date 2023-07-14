@@ -1,0 +1,92 @@
+{% extends 'student/studentbase.html' %}
+
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>My Marks</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.9/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-gray-100">
+<div style="margin-bottom: 7%;">
+  <center><input type="text" id="search" style="margin-top: 10px;" placeholder="Search..." oninput="filterTable()"></center>
+
+
+  <div class="container mx-auto mt-20">
+    <div class="w-full max-w-lg mx-auto" style="margin-bottom: 40%;">
+      <h6 class="text-center text-xl font-bold mb-4" style="margin-top: 20px;">My Marks</h6>
+      <!-- <div class="bg-white shadow-md rounded-lg px-8 py-6 pb-4 sm:pb-6 md:pb-8 lg:pb-10 xl:pb-12 overflow-x-auto"> -->
+        <div class="table-responsive" style="margin-left: 50px;">
+          <table class="table-auto w-full border-collapse">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="border border-gray-300 px-4 py-2">Course</th>
+                <th class="border border-gray-300 px-4 py-2">Action</th>
+              </tr>
+            </thead> 
+            <tbody>
+              {% for t in courses %}
+              <tr class="bg-white">
+                <td class="border border-gray-300 px-4 py-2">{{ t.course_name }}</td>
+                <td class="border border-gray-300 px-4 py-2">
+                  <a class="bg-green-500 text-gray rounded-lg px-4 py-2 text-xl"
+                    href="{% url 'check-marks' t.id %}" style="background-color: rgb(2, 2, 100);color: aliceblue;">View Marks</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      <!-- </div> -->
+    </div>
+  </div>
+</div>
+</body>
+
+
+<script >
+  function filterTable() {
+  // Get user's search query
+  var query = document.getElementById("search").value.toLowerCase();
+  
+  // Get all the rows in the table
+  var rows = document.getElementsByTagName("tr");
+
+  // Loop through all the rows
+  for (var i = 0; i < rows.length; i++) {
+    var row = rows[i];
+
+    // Get the cells in the row
+    var cells = row.getElementsByTagName("td");
+
+    // Loop through all the cells in the row
+    var match = false;
+    for (var j = 0; j < cells.length; j++) {
+      var cell = cells[j];
+
+      // If the cell contains the search query, show the row
+      if (cell.innerHTML.toLowerCase().indexOf(query) > -1) {
+        match = true;
+        break;
+      }
+    }
+
+    // Hide or show the row based on the search query
+    if (match) {
+      row.style.display = "";
+    } else {
+      row.style.display = "none";
+    }
+  }
+}
+
+</script>
+
+</html>
+
+{% endblock content %}

@@ -1,0 +1,34 @@
+{% extends 'student/studentbase.html' %}
+{% block content %}
+{%load static%}
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 style=" text-align: center;margin-top: 20px;" class="panel-title">My Marks</h6>
+    </div>
+    <table class="table table-hover table-bordered" id="dev-table">
+      <thead>
+        <tr>
+
+          <th>Course</th>
+          <th>Total Marks</th>
+          <th>Number of Attempts</th>
+          <th>Exam Date</th>
+        </tr>
+      </thead>
+      {% for t in results %}
+      <tr>
+
+        <td> {{t.exam}}</td>
+        <td> {{t.marks}}</td>
+        <td>Attempt {{ forloop.counter }}</td>
+        <td> {{t.date}}</td>
+        
+        
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+{% endblock content %}

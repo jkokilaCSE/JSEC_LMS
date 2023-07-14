@@ -1,0 +1,85 @@
+{% extends 'Common_Page_Tools/Common_base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text to Audio Converter</title>
+    <style>
+    .card-container1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.card1 {
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    padding: 20px;
+
+    width: 93%;
+    box-sizing: border-box;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.label1 {
+    font-size: 15px;
+}
+
+.input1 {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+}
+
+.btn1 {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="card-container1">
+        <div class="card1">
+            <h2>Text to Audio Converter</h2>
+            <form method="post">
+                {% csrf_token %}
+                <label for="text" class="label1">Text:</label>
+                <textarea name="text" id="text" rows="5" cols="50" required class="input1"></textarea>
+                <br>
+                <label for="language" class="label">Language:</label>
+                <select name="language" id="language" class="input">
+                    <option value="en">English</option>
+                    <option value="ta">Tamil</option>
+                    <!-- add more language options as needed -->
+                </select>
+                <br>
+                <button type="submit" class="btn1">Convert and Download</button>
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>
+
+{% endblock content %}
+
+
+
+
+
+

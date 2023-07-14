@@ -1,0 +1,35 @@
+{% extends 'student/studentbase.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href=
+    "https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+              rel="stylesheet">
+</head>
+<body>
+    <div style="margin-bottom: 10%;">
+    <a href="{% url 'toolHome' %}">
+        <button style="margin-top: 20px;margin-left: 140px;margin-bottom: 20px; border-radius: 5px;border-style: none; background-color: #007bff; color: #fff;" class="absolute  left-0 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Back</button>
+    </a>&nbsp;
+    
+    <div style="margin: 50px;margin-top: 70px;" class="bg-white rounded-lg shadow-lg p-6 w-full lg:w-3/4 mx-auto"><br>
+        <form method="post">
+            {% csrf_token %}
+            <div  class="form-group">
+                <label for="room_id" class="block text-gray-700 font-bold mb-2">Enter Room ID:</label>
+                <input type="text" name="room_id" id="room_id" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            </div>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">Join Meeting</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
+
+{% endblock %}

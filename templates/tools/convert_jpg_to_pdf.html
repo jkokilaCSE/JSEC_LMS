@@ -1,0 +1,59 @@
+{% extends 'student/studentbase.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Convert JPG to PDF</title>
+    <style>
+        #card {
+            border: 0px solid rgba(248, 246, 246, 0.918);
+            width: 400px;
+            height: 250px;
+            background-color: #f5f8f6;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(14, 13, 13, 0.2);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        #card1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="{% url 'toolHome' %}"> <button  style="margin-top: 60px;margin-left: 80px;border-radius: 5px;border-style: none; background-color: #007bff; color: #fff;" class="absolute  left-0 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Back </button></a> 
+
+    <div id="card1">
+        <div id="card" style="margin-bottom: 40px;">
+            <h2>Convert JPG to PDF</h2>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="file" style="font-size: 16px;">Select JPG files to upload:</label>
+                <input type="file" id="file" name="file" accept=".jpg, .jpeg" multiple required>
+                <br><br>
+                <button type="submit">Convert and Download PDF</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock content %}
